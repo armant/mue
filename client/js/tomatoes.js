@@ -1,21 +1,27 @@
 suggestions = [];
 
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '260823654091909',
-    status     : true,
-    xfbml      : true
-  })
+jQuery(document).ready(function($) {
+    $(".bt-fs-dialog").fSelector({
+      facebookInvite: false,
+      closeOnSubmit: true,
+      onSubmit: function(response){
+        // example response usage
+        console.log(response);
+        suggestions = [];
+        $.each(response, function (i, id) {
+            processArray(id);
+        });
+      }
+    });
+  });
 
-FB.Event.subscribe('auth.authResponseChange', function(response) {
-
-  // Here we specify what we do with the response anytime this event occurs. 
-  if (response.status === 'connected') {
+function processArray(id) {
     var access_token = FB.getAuthResponse().accessToken;
     // 655408561182349 band event (37 friends)
     // 422785927854157 is truth real (10 friends)
     // 573088256109912 pennapps (5 friends)
-    var q = 'SELECT movies FROM user WHERE uid IN (SELECT uid FROM event_member WHERE eid="422785927854157" AND rsvp_status="attending") AND uid IN (SELECT uid2 FROM friend where uid1 = me())'
+    $('#movies-button').removeClass('btn-danger').addClass('btn-default');
+    var q = 'SELECT movies FROM user WHERE uid = ' + id
 		$.ajax({
 			url: 'https://graph.facebook.com/fql/?q=' + q + '&access_token=' + access_token
 		}).done(function(data) {
@@ -94,6 +100,7 @@ FB.Event.subscribe('auth.authResponseChange', function(response) {
 				 suggestions.push(movie);
 				 $('.modal-body').html(Meteor.render(Template.movieList));
 				 $('span.stars').stars();
+				 $('#movies-button').addClass('btn-danger').removeClass('btn-default');
 			 });
 			}
 
@@ -102,6 +109,21 @@ FB.Event.subscribe('auth.authResponseChange', function(response) {
 			//$('#movies').html(ranked.toString());
 			//$('#movies').html(arr.toString());
 			})
+}
+  
+
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '260823654091909',
+    status     : true,
+    xfbml      : true
+  })
+
+FB.Event.subscribe('auth.authResponseChange', function(response) {
+
+  // Here we specify what we do with the response anytime this event occurs. 
+  if (response.status === 'connected') {
+    //  processArray(suggestions);
     // The response object is returned with a status field that lets the app know the current
     // login status of the person. In this case, we're handling the situation where they 
     // have logged in to the app.
@@ -130,14 +152,6 @@ Template.movieList.movies = function () {
   return suggestions;
 };
 
-Template.movieList.rate = function (e) {
-  console.log(e);
-  //console.log(e.ratings);
-  if (e) {
-    return String((e / 100) * 5);
-   }
-  //(this.ratings.critics_score / 100) * 5
-}
 
 (function(d, s, id){
    var js, fjs = d.getElementsByTagName(s)[0];

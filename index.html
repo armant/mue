@@ -7,15 +7,21 @@
 	<body>
 		<div id="fb-root"></div>
 		<div class = "container">
-			<div class = "jumbotron">
-				<center><h1>Crowd a Movie</h1>
+			<div class = "jumbotron" style="text-align: center" >
+				<h1>Crowd a Movie</h1>
 				<p>Stop wasting time trying to choose a movie. Pick the one <u><em>all of you</em></u> will enjoy.</p>
-				<fb:login-button show-faces="true" scope="user_likes,user_events,friends_likes" width="200" max-rows="1"></fb:login-button></center>
+				<div class="row">
+				<div class="col-xs-6">
+				<center><fb:login-button show-faces="true" scope="user_likes,user_events,friends_likes" width="200" max-rows="1"></fb:login-button>
+				<br>
+				<a href="javascript:{}" class="bt-fs-dialog btn btn-primary btn-xlarge" style="margin-top: 20px">Select Friends</a></center>
+				</div>
+				<div class="col-xs-6">
+				<center><a href="#movies" id="movies-button" data-toggle="modal" class="btn btn-default btn-xlarge" style="margin-top: 10%; margin-right:30%;">Get movies</a></center>
+				</div>				
 			</div>
 		</div>
-		
-	    <center><a href="#movies" data-toggle="modal" class="btn btn-danger btn-xlarge">Get movies</a></center>
-    
+
 		<div class = "modal fade" id = "movies" role = "dialog">
 			<div class = "modal-dialog">
 				<div class = "modal-content">
@@ -46,11 +52,8 @@
 		<h1><a href="{{ links.alternate }}" target="_blank">{{ title }}</a></h1>
 	
 		<div>
-			<div class = "numscore"><h3>Audience Match Score: </h3></div>
-			<div class = "numscore"><h2><strong>57.24</strong></h2></div>
 			<span class="stars">
-			  {{#rate ratings.critics_score }}
-			  {{/rate}}
+			  {{ rate ratings.critics_score }}
 			</span>
 		</div>
 	
