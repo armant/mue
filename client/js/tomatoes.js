@@ -67,7 +67,7 @@ function processArray(id) {
 			var baseUrl = "http://api.rottentomatoes.com/api/public/v1.0";
 
 			//for (var i=sorted.length; i > sorted.length - 10; i -= 2) {
-			for (var i=sorted.length-1; i > sorted.length - 13; i-=2) {
+			for (var i=sorted.length - 1; i > Math.max(sorted.length - 10, -1); i -= 2) {
 				var weight = sorted[i].value;
 				var query = sorted[i].key;
 				var movie_name = query;
@@ -97,12 +97,16 @@ function processArray(id) {
 			 var movies = data.movies;
 			 $.each(movies, function(index, movie) {
 				 //$(document.body).append('<img src="' + movie.posters.thumbnail + '" />');
-				 suggestions.push(movie);
-				 $('.modal-body').html(Meteor.render(Template.movieList));
-				 $('span.stars').stars();
-				 $('#movies-button').addClass('btn-danger').removeClass('btn-default');
+				 if (jQuery.inArray(movie, suggestions) === -1){
+				   suggestions.push(movie);
+				   $('.modal-body').html(Meteor.render(Template.movieList));
+				   $('span.stars').stars();
+				   $('#movies-button').addClass('btn-danger').removeClass('btn-default');
+				 }
 			 });
 			}
+			
+			suggestions.sort(function(a,b) { return parseFloat(a.ratings.critics_score) - parseFloat(b.ratings.critics_score) } );
 
 			//console.log(suggestions);
 
