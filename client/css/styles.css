@@ -1,0 +1,51 @@
+body {
+	background-image:url('../../images/background.jpg');
+	background-repeat:no-repeat;
+	font-family: "Lato";
+}
+
+.jumbotron {
+	background-color:transparent;
+	color:white;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.movie {
+	display:inline;
+	position:fixed;
+	margin-top: 0px;
+	margin-left: 10px;
+}
+
+h1.movie {
+	font-weight:bold;
+}
+
+.moviebox {
+	margin-bottom:50px;
+}
+
+span.stars, span.stars span {
+    display: block;
+    background: url('../../images/stars.png') 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+	position:fixed;
+}
+
+span.stars span {
+    background-position: 0 0;
+}
+
+.numscore {
+	display:inline-block;
+}
+
+.btn-xlarge {
+    padding: 18px 28px;
+    font-size: 22px;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+    }

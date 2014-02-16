@@ -1,0 +1,62 @@
+	<head>
+		<title>Crowd a Movie</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+		</head>
+	
+	<body>
+		<div id="fb-root"></div>
+		<div class = "container">
+			<div class = "jumbotron">
+				<center><h1>Crowd a Movie</h1>
+				<p>Stop wasting time trying to choose a movie. Pick the one <u><em>all of you</em></u> will enjoy.</p>
+				<fb:login-button show-faces="true" scope="user_likes,user_events,friends_likes" width="200" max-rows="1"></fb:login-button></center>
+			</div>
+		</div>
+		
+	    <center><a href="#movies" data-toggle="modal" class="btn btn-danger btn-xlarge">Get movies</a></center>
+    
+		<div class = "modal fade" id = "movies" role = "dialog">
+			<div class = "modal-dialog">
+				<div class = "modal-content">
+					
+					<div class = "modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4><strong>The best movies for this audience</strong></h4>
+					</div>
+					
+					{{> movieList }}
+					
+					<div class = "modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</body>
+	
+<template name="movieList">
+<div class = "modal-body">
+{{#each movies}}
+<div class = "moviebox">
+	<img class = "moviepic" src="{{ posters.detailed }}"</img>
+	<div class = "movie">
+	
+		<h1><a href="{{ links.alternate }}" target="_blank">{{ title }}</a></h1>
+	
+		<div>
+			<div class = "numscore"><h3>Audience Match Score: </h3></div>
+			<div class = "numscore"><h2><strong>57.24</strong></h2></div>
+			<span class="stars">
+			  {{#rate ratings.critics_score }}
+			  {{/rate}}
+			</span>
+		</div>
+	
+	</div>
+	
+</div>
+{{/each}}
+</template>
+
