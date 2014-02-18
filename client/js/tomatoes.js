@@ -107,7 +107,7 @@ function processArray(id) {
 			}
 			
 			suggestions.sort(function(a,b) { return parseFloat(a.ratings.critics_score) - parseFloat(b.ratings.critics_score) } );
-
+			$('.modal-body').html(Meteor.render(Template.movieList));
 			//console.log(suggestions);
 
 			//$('#movies').html(ranked.toString());
